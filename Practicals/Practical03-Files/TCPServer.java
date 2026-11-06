@@ -1,0 +1,64 @@
+
+// TCPServer.java
+// A server program implementing TCP socket
+import java.net.*; 
+import java.io.*; 
+
+public class TCPServer { 
+  public static void main (String args[]) 
+  { 
+    try{ 
+            int serverPort = 10100; 
+            ServerSocket listenSocket = new ServerSocket(serverPort); 
+      
+            System.out.println("server start listening... ... ...");
+		
+            while(true) { 
+                Socket clientSocket = listenSocket.accept(); 
+                Connection c = new Connection(clientSocket); 
+            } 
+    } 
+    catch(IOException e) {
+    	System.out.println("Listen :"+e.getMessage());} 
+  }
+}
+
+class Connection extends Thread { 
+	DataInputStream input; 
+	DataOutputStream output; 
+	Socket clientSocket; 
+	
+	public Connection (Socket aClientSocket) { 
+	    try { 
+                    clientSocket = aClientSocket; 
+                    input = new DataInputStream( clientSocket.getInputStream()); 
+                    output =new DataOutputStream( clientSocket.getOutputStream()); 
+                    this.start(); 
+	    } 
+            catch(IOException e) {
+    		System.out.println("Connection:"+e.getMessage());
+            } 
+  	} 
+
+  	public void run() { 
+	    try { // an echo server 
+		    String data = input.readUTF(); 
+		    System.out.println ("receive from : " + 
+		    	clientSocket.getInetAddress() + ":" +
+		    	clientSocket.getPort() + " message - " + data);
+		    output.writeUTF(data); 
+            } 
+            catch(EOFException e) {
+    		System.out.println("EOF:"+e.getMessage()); } 
+            catch(IOException e) {
+    		System.out.println("IO:"+e.getMessage());}  
+   
+            finally { 
+      		try { 
+      			clientSocket.close();
+      		}
+      		catch (IOException e){/*close failed*/}
+            }
+        }
+}
+
