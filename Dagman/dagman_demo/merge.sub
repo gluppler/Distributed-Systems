@@ -1,0 +1,8 @@
+executable = /usr/bin/python3
+arguments = /mnt/data/dagman_demo/merge_results.py
+
+output = /mnt/data/dagman_demo/logs/merge.out
+error  = /mnt/data/dagman_demo/logs/merge.err
+log    = /mnt/data/dagman_demo/logs/merge.log
+
+queue

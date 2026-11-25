@@ -1,0 +1,15 @@
+JOB PREP  prep.sub
+
+JOB A task.sub
+VARS A script="task_A.py"
+
+JOB B task.sub
+VARS B script="task_B.py"
+
+JOB C task.sub
+VARS C script="task_C.py"
+
+JOB MERGE merge.sub
+
+PARENT PREP CHILD A B C
+PARENT A B C CHILD MERGE

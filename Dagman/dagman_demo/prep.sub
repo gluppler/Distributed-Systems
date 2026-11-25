@@ -1,0 +1,8 @@
+executable = /usr/bin/python3
+arguments = /mnt/data/dagman_demo/prep_task.py
+
+output = /mnt/data/dagman_demo/logs/prep.out
+error  = /mnt/data/dagman_demo/logs/prep.err
+log    = /mnt/data/dagman_demo/logs/prep.log
+
+queue
